@@ -1,4 +1,4 @@
-# vue-projects
+# Task manager
 
 > A Vue.js project
 
