@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    
+    <Navbar />
     <div class="container">
       <h1>{{ msg }}</h1>
     
       <div class="row">
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
           <h2>Проект</h2>
           <button class="btn btn-success btn-sm mb-2">Add Project</button>
           <ul class="list-group">
@@ -15,10 +15,10 @@
               <span class="badge badge-primary badge-pill">14</span>
             </li>
           </ul>
-        </div>
+        </div> -->
       <div class="col-md-8">
         <h2>Задачи</h2>
-        <button class="btn btn-success btn-sm mb-2">Add Task</button>
+        <button id="addTask" class="btn btn-success btn-sm mb-2" data-toggle="modal" data-target="#exampleModal">Add Task</button>
         <table class="table">
           <thead>
             <tr>
@@ -29,32 +29,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Task 1</td>
-              <td><span class="text-danger">Critical</span></td>
-              <td>#tag1, #tag2</td>
-              <td>В разработке</td>
+            <tr v-for="task in taskList" :key="task.id">
+              <td>{{task.taskName}}</td>
+              <td><span :class="priority(task.priority)">{{task.priority.value}}</span></td>
+              <td>
+				  <span v-for="(tag,i) in task.tags" :key="tag.id">
+                	<span>{{ (i > 0 ? ', ' : '') }}</span>
+   					<span class="text-nowrap">{{ tag.value }}</span>
+				</span>
+			  </td>
+              <td>{{task.status.value}}</td>
             </tr>
-            <tr>
-              <td>Task 2</td>
-              <td><span class="text-success">Normal</span></td>
-              <td>#tag1, #tag2</td>
-              <td>В разработке</td>
-            </tr>
-            <tr>
-              <td>Task 3</td>
-              <td><span class="text-warning">Major</span></td>
-              <td>#tag1, #tag2</td>
-              <td>Завершено</td>
-            </tr>
-            <tr>
-              <td>Task 4</td>
-              <td><span class="text-primary">Low</span></td>
-              <td>#tag1, #tag2</td>
-              <td>Завершено</td>
-            </tr>
+          
           </tbody>
         </table>
+		<Modal />
         </div>
       </div>
     </div>
@@ -62,20 +51,66 @@
 </template>
 
 <script>
+
+import Navbar from './components/Navbar.vue';
+import Modal from './components/Modal.vue';
+
 export default {
   name: "app",
+  components:{Navbar,Modal},
+  filters: {
+    tagsFilter: function(value) {
+      console.dir(value.value);
+      return value.value;
+    }
+    // capitalize: function(value) {
+    //   if (!value) return "";
+    //   value = value.toString();
+    //   return value.toUpperCase();
+    // }
+  },
+  methods: {
+    priority: function(priority) {
+      switch (priority.value) {
+        case "Critical":
+          return "text-danger";
+        case "Major":
+          return "text-warning";
+        case "Normal":
+          return "text-success";
+        case "Low":
+          return "text-primary";
+      }
+    }
+  },
   data() {
     return {
       msg: "Welcome to Task Manager",
-      projectList:[{id:1,name:"Project 1",isActive: true,},
-      {id:2,name:"Project 2",isActive: false},
-      {id:3,name:"Project 3",isActive: false},
-      {id:4,name:"Project 4",isActive: false},
-      {id:5,name:"Project 5",isActive: false}]
+      projectList: [
+        { id: 1, name: "Project 1", isActive: true },
+        { id: 2, name: "Project 2", isActive: false },
+        { id: 3, name: "Project 3", isActive: false },
+        { id: 4, name: "Project 4", isActive: false },
+        { id: 5, name: "Project 5", isActive: false }
+      ],
+      taskList: [
+        {
+          id: 1,
+          taskName: "Task 1",
+          priority: { id: 1, value: "Critical" },
+          tags: [{ id: 1, value: "#tag1" }],
+          status: { id: 1, value: "In Progress" }
+        },
+        {
+          id: 2,
+          taskName: "Task 2",
+          priority: { id: 2, value: "Major" },
+          tags: [{ id: 1, value: "#tag1" }, { id: 2, value: "#tag2" }],
+          status: { id: 2, value: "Completed" }
+        }
+      ]
     };
   }
 };
 </script>
 
-<style lang="scss">
-</style>
