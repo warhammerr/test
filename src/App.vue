@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar />
+    <Navbar/>
     <div class="container">
       <h1>{{ msg }}</h1>
 
@@ -16,19 +16,21 @@
             </li>
           </ul>
         </div> -->
-      <div class="col-md-8">
-        <h2>Задачи</h2>
-        <button id="addTask" class="btn btn-success btn-sm mb-2" data-toggle="modal" data-target="#exampleModal">Add Task</button>
-        <table class="table">
-          <thead>
+        <div class="col-md-8">
+          <h2>Задачи</h2>
+          <button id="addTask" class="btn btn-success btn-sm mb-2" data-toggle="modal" data-target="#exampleModal">Add
+            Task
+          </button>
+          <table class="table">
+            <thead>
             <tr>
               <th>Task Name</th>
               <th>Priotity</th>
               <th>Tags</th>
               <th>Status</th>
             </tr>
-          </thead>
-          <tbody>
+            </thead>
+            <tbody>
             <tr v-for="task in taskList" :key="task.id">
               <td>{{task.taskName}}</td>
               <td><span :class="priority(task.priority)">{{task.priority.value}}</span></td>
@@ -37,13 +39,12 @@
                 	<span>{{ (i > 0 ? ', ' : '') }}</span>
    					<span class="text-nowrap">{{ tag.value }}</span>
 				</span>
-			  </td>
+              </td>
               <td>{{task.status.value}}</td>
             </tr>
-
-          </tbody>
-        </table>
-		<Modal />
+            </tbody>
+          </table>
+          <Modal />
         </div>
       </div>
     </div>
@@ -52,65 +53,58 @@
 
 <script>
 
-import Navbar from './components/Navbar.vue';
-import Modal from './components/Modal.vue';
+  import Navbar from './components/Navbar.vue';
+  import Modal from './components/Modal.vue';
 
-export default {
-  name: "app",
-  components:{Navbar,Modal},
-  filters: {
-    tagsFilter: function(value) {
-      console.dir(value.value);
-      return value.value;
-    }
-    // capitalize: function(value) {
-    //   if (!value) return "";
-    //   value = value.toString();
-    //   return value.toUpperCase();
-    // }
-  },
-  methods: {
-    priority: function(priority) {
-      switch (priority.value) {
-        case "Critical":
-          return "text-danger";
-        case "Major":
-          return "text-warning";
-        case "Normal":
-          return "text-success";
-        case "Low":
-          return "text-primary";
-      }
-    }
-  },
-  data() {
-    return {
-      msg: "Welcome to Task Manager",
-      projectList: [
-        { id: 1, name: "Project 1", isActive: true },
-        { id: 2, name: "Project 2", isActive: false },
-        { id: 3, name: "Project 3", isActive: false },
-        { id: 4, name: "Project 4", isActive: false },
-        { id: 5, name: "Project 5", isActive: false }
-      ],
-      taskList: [
-        {
-          id: 1,
-          taskName: "Task 1",
-          priority: { id: 1, value: "Critical" },
-          tags: [{ id: 1, value: "tag1" }],
-          status: { id: 1, value: "In Progress" }
-        },
-        {
-          id: 2,
-          taskName: "Task 2",
-          priority: { id: 2, value: "Major" },
-          tags: [{ id: 1, value: "tag1" }, { id: 2, value: "tag2" }],
-          status: { id: 2, value: "Completed" }
+  export default {
+    name: "app",
+    components: {Navbar, Modal},
+    methods: {
+      priority: function (priority) {
+        switch (priority.value) {
+          case "Critical":
+            return "text-danger";
+          case "Normal":
+            return "text-warning";
+          case "Low":
+            return "text-success";
         }
-      ]
-    };
-  }
-};
+      }
+    },
+    data() {
+      return {
+        msg: "Welcome to Task Manager",
+        priorityList: [
+          {id: 1, value: "Critical"},
+          {id: 2, value: "Normal"},
+          {id: 3, value: "Low"},
+        ],
+        taskList: [
+          {
+            id: 1,
+            taskName: "Task 1",
+            priority: {id: 1, value: "Critical"},
+            tags: [{id: 1, value: "tag1"}],
+            status: {id: 1, value: "In Progress"}
+          },
+          {
+            id: 2,
+            taskName: "Task 2",
+            priority: {id: 2, value: "Normal"},
+            tags: [{id: 1, value: "tag1"}, {id: 2, value: "tag2"}],
+            status: {id: 2, value: "Completed"}
+          }
+          ,
+          {
+            id: 3,
+            taskName: "Task 3",
+            priority: {id: 3, value: "Low"},
+            tags: [{id: 1, value: "tag1"}, {id: 2, value: "tag2"}, {id: 3, value: "tag3"}],
+            status: {id: 2, value: "Completed"}
+          }
+        ]
+      };
+    }
+  };
 </script>
 
