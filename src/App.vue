@@ -3,13 +3,13 @@
     <Navbar />
     <div class="container">
       <h1>{{ msg }}</h1>
-    
+
       <div class="row">
         <!-- <div class="col-md-4">
           <h2>Проект</h2>
           <button class="btn btn-success btn-sm mb-2">Add Project</button>
           <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center" 
+            <li class="list-group-item d-flex justify-content-between align-items-center"
               v-for="project in projectList" :key="project.id" :class="{ active: project.isActive }">
               {{project.name}}
               <span class="badge badge-primary badge-pill">14</span>
@@ -40,7 +40,7 @@
 			  </td>
               <td>{{task.status.value}}</td>
             </tr>
-          
+
           </tbody>
         </table>
 		<Modal />
@@ -98,14 +98,14 @@ export default {
           id: 1,
           taskName: "Task 1",
           priority: { id: 1, value: "Critical" },
-          tags: [{ id: 1, value: "#tag1" }],
+          tags: [{ id: 1, value: "tag1" }],
           status: { id: 1, value: "In Progress" }
         },
         {
           id: 2,
           taskName: "Task 2",
           priority: { id: 2, value: "Major" },
-          tags: [{ id: 1, value: "#tag1" }, { id: 2, value: "#tag2" }],
+          tags: [{ id: 1, value: "tag1" }, { id: 2, value: "tag2" }],
           status: { id: 2, value: "Completed" }
         }
       ]
