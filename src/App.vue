@@ -44,7 +44,7 @@
             </tr>
             </tbody>
           </table>
-          <Modal />
+          <Modal :priority-list="priorityList" :state-list="stateList"/>
         </div>
       </div>
     </div>
@@ -79,6 +79,10 @@
           {id: 2, value: "Normal"},
           {id: 3, value: "Low"},
         ],
+        stateList: [
+          {id: 1, value: "In Progress"},
+          {id: 2, value: "Complete"},
+        ],
         taskList: [
           {
             id: 1,
@@ -93,8 +97,7 @@
             priority: {id: 2, value: "Normal"},
             tags: [{id: 1, value: "tag1"}, {id: 2, value: "tag2"}],
             status: {id: 2, value: "Completed"}
-          }
-          ,
+          },
           {
             id: 3,
             taskName: "Task 3",

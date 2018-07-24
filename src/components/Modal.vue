@@ -31,10 +31,11 @@
               </tags-input>
             </div>
             <div class="form-group">
-              <label for="taskStatus">Enter task status:</label>
-              <input type="text" class="form-control" id="taskStatus" v-model="task.status">
+              <label for="taskStatus">Enter task state:</label>
+              <select class="form-control selectpicker" id="taskStatus" v-model="task.status">
+                <option v-for="state in stateList" :key="state.id">{{state.value}}</option>
+              </select>
             </div>
-
           </form>
         </div>
         <pre>{{task}}</pre>
@@ -55,6 +56,10 @@
         console.log(this.task);
       }
     },
+    props: {
+      priorityList: '',
+      stateList: '',
+    },
     data() {
       return {
         task: {
@@ -63,11 +68,6 @@
           tags: [],
           status: {}
         },
-        priorityList: [
-          {id: 1, value: "Critical"},
-          {id: 2, value: "Normal"},
-          {id: 3, value: "Low"},
-        ],
       };
     }
   };
